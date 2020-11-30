@@ -1,0 +1,14 @@
+<nav class="header">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo">Лента</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      {{#if isAuth}}
+        <li><a href="/personal">Личная лента</a></li>
+        <li><a href="/auth/logout">Выйти</a></li>
+      {{else}}
+        <li><a href="/auth#login">Вход</a></li>
+      {{/if}}
+      
+    </ul>
+  </div>
+</nav>

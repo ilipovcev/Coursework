@@ -1,0 +1,178 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f2fafa;
+}
+
+.header {
+  position: fixed;
+  z-index: 100;
+  background-color: #008abe;
+  padding: 0 2rem;
+}
+
+.mainA:hover {
+  color: rgb(197, 204, 212);
+  font-size: 31px;
+  font-weight: 415;
+}
+
+.mainA {
+  display: block;
+  margin-top: 10px;
+  font-family: 'Grandstander', cursive;
+  font-weight: 400;
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  margin-left: 2%;
+  margin-right: 95%;
+}
+.lenta {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 4rem;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 60%;
+  background: #e0eeee;
+}
+
+#icon_prefix2 {
+  font-size: 25px;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 400;
+}
+
+.btn {
+  top: -50px;
+  float: right;
+  right: 2%;
+}
+
+.brand-logo {
+  left: 25px;
+}
+.boxInput {
+  padding-top: 75px;
+}
+
+.card-content {
+  background-color: #f2fafa;
+}
+
+.card-action-auth {
+  margin-top: 1rem;
+  background-color: #f2fafa;
+}
+
+.card {
+  padding: 5px;
+}
+
+.preloader-wrapper {
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
+.col {
+  font-size: 25px;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 400;
+  width: 100%;
+}
+.cardDate {
+  font-size: 17px;
+  font-family: 'Exo 2', sans-serif;
+  float: right;
+}
+
+.auth-card {
+  margin: 15% auto;
+}
+
+.card-content-auth {
+  background-color: #f2fafa;
+}
+
+.input-field #input:focus {
+  border-bottom: 1px solid #979797;
+  box-shadow: 0 1px 0 0 #979797;
+}
+
+.input-field .prefix.active {
+  color: #979797 !important;
+}
+
+.input-field #input:focus + label {
+  color: #000;
+}
+
+.input-field #first_name:focus {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+
+.input-field #password:focus {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+
+.input-field #first_name:focus + label {
+  color: #000;
+}
+
+.input-field #password:focus + label {
+  color: #000;
+}
+
+.auth {
+  padding-top: 5rem;
+}
+
+.alert {
+  padding: 0.5rem, 1rem;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  background: rgba(255, 0, 0, 0.3);
+  color: red;
+}
+
+.name-user {
+  padding: 0.5rem, 1rem;
+  border-radius: 5px;
+
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+
+  color: black;
+}
+
+.name-user-personal {
+  padding: 0.5rem, 1rem;
+  border-radius: 5px;
+
+  margin-bottom: 1rem;
+  margin-top: 0.2rem;
+
+  color: black;
+}
+
+#posts {
+  margin-top: 50px;
+}
+
+#h1404 {
+  padding: 150px;
+  color: red;
+}
+
+.file-field {
+  padding: 15px;
+  margin-bottom: 50px;
+}
