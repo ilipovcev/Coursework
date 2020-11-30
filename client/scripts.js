@@ -303,3 +303,5 @@ $('#imgUpload').change(function () {
     readURL(this);
   });
 });
+
+console.log('Test');
