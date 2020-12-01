@@ -273,25 +273,31 @@ function readURL(input) {
       const reader = new FileReader();
 
       reader.onload = function (e) {
-        const a = document.createElement('a');
-        a.innerHTML = '';
-        a.classList = 'link';
-        a.setAttribute('href', filePath[i]);
-        a.setAttribute('data-lightbox', 'onload');
+        const div = document.createElement('div');
+        div.classList = 'column';
 
         const img = document.createElement('img');
         img.setAttribute('id', 'dynamic');
         img.setAttribute('src', e.target.result);
-        img.setAttribute('width', '30%');
-        img.setAttribute('height', 'auto');
-        img.setAttribute('style', 'margin: 5px; padding: 10px 5px;');
+        img.setAttribute('onclick', `openModal(); currentSlide(${i + 1})`);
+        img.setAttribute(
+          'style',
+          'padding: 0 8px; float: left; width: 25%; transition: 0.3s;'
+        );
+        img.classList = 'hover-shadow';
+        img.classList.add('HoverClass2');
+        // img.setAttribute('width', '30%');
+        // img.setAttribute('height', 'auto');
+        // img.setAttribute('style', 'margin: 5px; padding: 10px 5px;');
 
-        a.append(img);
-        divPreview.append(a);
+        div.append(img);
+        divPreview.append(div);
       };
       reader.readAsDataURL(input.files[i]);
     }
   }
+  createModal(input);
+  showSlides(slideIndex);
 }
 
 $('#imgUpload').change(function () {
@@ -304,4 +310,96 @@ $('#imgUpload').change(function () {
   });
 });
 
-console.log('Test');
+function createModal(input) {
+  const divMyModal = document.getElementById('myModal');
+
+  const divModalContent = document.getElementById('contentInGallery');
+  divModalContent.innerText = ' ';
+
+  for (let i = 0; i < input.files.length; i++) {
+    const divMySlides = document.createElement('div');
+    divMySlides.classList = 'mySlides';
+    divMySlides.setAttribute('style', 'display: none;');
+
+    const divNumberText = document.createElement('div');
+    divNumberText.classList = 'numberText';
+    divNumberText.innerText = `${i + 1}/${input.files.length}`;
+    divNumberText.setAttribute(
+      'style',
+      'color: #f2f2f2; font-size: 12px; padding: 8px 12px; position: absolute; top: 0;'
+    );
+
+    const img = document.createElement('img');
+    img.setAttribute('src', filePath[i]);
+    img.setAttribute('style', 'width:100%');
+
+    divMySlides.append(divNumberText);
+    divMySlides.append(img);
+
+    divModalContent.append(divMySlides);
+  }
+
+  for (let i = 0; i < input.files.length; i++) {
+    const divColumn = document.createElement('div');
+    divColumn.classList = 'column';
+
+    const img = document.createElement('img');
+    img.setAttribute('src', filePath[i]);
+    img.setAttribute('onclick', `currentSlide(${i + 1})`);
+    img.classList = 'demo';
+    img.classList.add('HoverClass1');
+    img.setAttribute('style', 'opacity: 0.6; display: none');
+
+    divColumn.append(img);
+
+    divModalContent.append(divColumn);
+  }
+
+  divMyModal.append(divModalContent);
+}
+
+function openModal() {
+  document.getElementById('myModal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('myModal').style.display = 'none';
+}
+
+let slideIndex = 1;
+
+function plusSlides(n) {
+  showSlides((slideIndex += n));
+}
+
+function currentSlide(n) {
+  showSlides((slideIndex = n));
+}
+
+function showSlides(n) {
+  try {
+    let slides = document.getElementsByClassName('mySlides');
+    let dots = document.getElementsByClassName('demo');
+    let captionText = document.getElementById('caption');
+
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = 'none';
+    }
+    // for (let i = 0; i < dots.length; i++) {
+    //   dots[i].className = dots[i].className.replace(' active', '');
+    // }
+
+    slides[slideIndex - 1].style.display = 'block';
+    //dots[slideIndex - 1].className += ' active';
+    captionText.innerHTML = dots[slideIndex - 1].alt;
+  } catch (e) {
+    console.log(e);
+  }
+}
