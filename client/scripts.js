@@ -286,9 +286,6 @@ function readURL(input) {
         );
         img.classList = 'hover-shadow';
         img.classList.add('HoverClass2');
-        // img.setAttribute('width', '30%');
-        // img.setAttribute('height', 'auto');
-        // img.setAttribute('style', 'margin: 5px; padding: 10px 5px;');
 
         div.append(img);
         divPreview.append(div);
@@ -321,19 +318,10 @@ function createModal(input) {
     divMySlides.classList = 'mySlides';
     divMySlides.setAttribute('style', 'display: none;');
 
-    const divNumberText = document.createElement('div');
-    divNumberText.classList = 'numberText';
-    divNumberText.innerText = `${i + 1}/${input.files.length}`;
-    divNumberText.setAttribute(
-      'style',
-      'color: #f2f2f2; font-size: 12px; padding: 8px 12px; position: absolute; top: 0;'
-    );
-
     const img = document.createElement('img');
     img.setAttribute('src', filePath[i]);
     img.setAttribute('style', 'width:100%');
 
-    divMySlides.append(divNumberText);
     divMySlides.append(img);
 
     divModalContent.append(divMySlides);
@@ -377,29 +365,18 @@ function currentSlide(n) {
 }
 
 function showSlides(n) {
-  try {
-    let slides = document.getElementsByClassName('mySlides');
-    let dots = document.getElementsByClassName('demo');
-    let captionText = document.getElementById('caption');
+  let slides = document.getElementsByClassName('mySlides');
 
-    if (n > slides.length) {
-      slideIndex = 1;
-    }
-    if (n < 1) {
-      slideIndex = slides.length;
-    }
-
-    for (let i = 0; i < slides.length; i++) {
-      slides[i].style.display = 'none';
-    }
-    // for (let i = 0; i < dots.length; i++) {
-    //   dots[i].className = dots[i].className.replace(' active', '');
-    // }
-
-    slides[slideIndex - 1].style.display = 'block';
-    //dots[slideIndex - 1].className += ' active';
-    captionText.innerHTML = dots[slideIndex - 1].alt;
-  } catch (e) {
-    console.log(e);
+  if (n > slides.length) {
+    slideIndex = 1;
   }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = 'none';
+  }
+
+  slides[slideIndex - 1].style.display = 'block';
 }

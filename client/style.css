@@ -35,9 +35,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding-top: 4rem;
-  flex-direction: row;
   min-height: 100vh;
-  width: 60%;
+  width: 50%;
   background: #e0eeee;
 }
 
@@ -183,18 +182,17 @@ body {
   clear: both;
 }
 
-.modal {
+.myModal {
   display: none;
   position: fixed;
-  z-index: 1;
-  margin-top: 50px;
+  z-index: 9999;
   padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: black;
 }
 
 .close {
@@ -255,10 +253,11 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.modal-content {
+.modal_content {
   position: relative;
+  background-color: #fefefe;
   margin: auto;
-  padding: auto;
-  width: 42%;
+  width: 65%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   max-width: 1200px;
 }
