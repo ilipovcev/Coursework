@@ -1,17 +1,39 @@
 'use strict';
 
 const card = (post) => {
-  console.log(post.userId.name);
+  if (post.img.length == 0) {
+    post.img[0] = '';
+  }
+
+  if (post.userId.name === 'admin') {
+    post.userId.name = '👽admin';
+  } else {
+    post.userId.name = `🐱‍👤${post.userId.name}`;
+  }
+
+  let arrayImg = [];
+  for (let i = 0; i < post.img.length; i++) {
+    arrayImg.push(post.img[i]);
+  }
+
   return `
+  <div id="modalInPost" class="myModal">
+    <span class="close cursor" onclick="closeModalPost()">&times;</span>
+    <div class="modal_content" id="contentInGalleryPost"></div>
+    <a class="prev" onclick="plusSlidesPost(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlidesPost(1)">&#10095;</a>
+  </div>
   <div class="row">
     <div class="col">
       <div class="card">
         <div class="name-user">
-         🤡${post.userId.name}
+          ${post.userId.name}
         </div>
         <hr>
         <div class="card-image">
-          <img src="" id="cardImg">
+          <img src="${
+            post.img[0]
+          }" id="cardImg" onclick="createModalPost(${arrayImg})">
         </div>
         <div class="card-content">
           <p style='white-space: pre-line; word-break: break-all;'>${post.text.trim()}</p>
@@ -37,7 +59,7 @@ const cardPersonal = (post) => {
     <div class="col">
       <div class="card">
         <div class="name-user-personal">
-          👽${post.userId.name}
+          😎${post.userId.name}
         </div>
         <hr>
         <div class="card-image">
@@ -145,15 +167,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderPosts(_posts = []) {
-  const $posts = document.querySelector('#posts');
+  const posts = document.querySelector('#posts');
 
   if (_posts.length > 0) {
-    $($posts).html('');
+    $(posts).html('');
     _posts.forEach((v) => {
-      $($posts).prepend(card(v));
+      $(posts).prepend(card(v));
     });
   } else {
-    $posts.innerHTML = ' ';
+    posts.innerHTML = ' ';
   }
 }
 
@@ -397,4 +419,64 @@ function showSlides(n) {
   }
 
   slides[slideIndex - 1].style.display = 'block';
+}
+
+//creating lightbox for posts
+
+function createModalPost(arrayImg) {
+  console.log(arrayImg);
+  document.getElementById('modalInPost').style.display = 'block';
+
+  const divMyModal = document.getElementById('modalInPost');
+
+  const divModalContent = document.getElementById('contentInGalleryPost');
+  divModalContent.innerText = ' ';
+
+  for (let i = 0; i < arrayImg; i++) {
+    const divMySlides = document.createElement('div');
+    divMySlides.classList = 'mySlidesPost';
+    divMySlides.setAttribute('style', 'display: none;');
+
+    const img = document.createElement('img');
+    img.setAttribute('src', arrayImg[i]);
+    img.setAttribute('style', 'width:100%');
+
+    divMySlides.append(img);
+
+    divModalContent.append(divMySlides);
+  }
+
+  divMyModal.append(divModalContent);
+  currentSlidePost(1);
+}
+
+function closeModalPost() {
+  document.getElementById('modalInPost').style.display = 'none';
+}
+
+let slideIndexPost = 1;
+
+function plusSlidesPost(n) {
+  showSlidesPost((slideIndexPost += n));
+}
+
+function currentSlidePost(n) {
+  showSlidesPost((slideIndexPost = n));
+}
+
+function showSlidesPost(n) {
+  let slides = document.getElementsByClassName('mySlidesPost');
+
+  if (n > slides.length) {
+    slideIndexPost = 1;
+  }
+  if (n < 1) {
+    slideIndexPost = slides.length;
+  }
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = 'none';
+  }
+
+  slides[slideIndexPost - 1].style.display = 'block';
 }
