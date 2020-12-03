@@ -6,6 +6,9 @@ const postPersonalSchema = new Schema({
     type: String,
     required: true,
   },
+  img: {
+    type: Array,
+  },
   date: {
     type: Date,
     default: Date.now,

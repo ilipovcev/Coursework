@@ -1,5 +1,13 @@
 <body>
   <div>
+    <div id="myModal" class="myModal">
+      <span class="close cursor" onclick="closeModal()">&times;</span>
+      <div class="modal_content" id="contentInGallery">
+
+      </div>
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
     <div class="lenta">
       <form action="" method="POST" class="writePost" id="writePost"> 
         <div class='boxInput'>
@@ -16,15 +24,18 @@
           </div>
         </div>  
 
-        <div class="file-field input-field">
-          <div class="btn">
-            <span>Загрузить</span>
-            <input type="file" id="imgUpload" accept="image/jpeg, image/png, image/jpg" multiple>
+        <form enctype="multipart/form-data" method="POST" id="uploadImgFormPersonal"> 
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>Загрузить</span>
+              <input type="file" id="imgUploadPersonal" name="imgUploadPersonal" accept="image/jpeg, image/png, image/jpg" multiple>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Добавить фотографии">
+            </div>
           </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" placeholder="Добавить фотографии">
-          </div>
-        </div>
+        </form>
+
         <div id="preview" class="gallery"></div>
 
         <button class="btn waves-effect waves-light green" type="submit" name="action" id="btnSendPersonal">Отправить

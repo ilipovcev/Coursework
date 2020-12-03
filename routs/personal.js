@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const PostPersonal = require('../models/PostPersonal');
+const fileMiddleware = require('../middleware/files');
 
 router.get('/', auth, async (req, res) => {
   const posts = await PostPersonal.find({ userId: req.user }).populate(
@@ -12,9 +13,26 @@ router.get('/', auth, async (req, res) => {
   res.status(200).json(posts);
 });
 
+router.post(
+  '/uploadPersonal',
+  fileMiddleware.array('imgUploadPersonal', 10),
+  async (req, res) => {
+    let link = [];
+
+    for (let i = 0; i < req.files.length; i++) {
+      console.log(req.files[i].path);
+      link.push(req.files[i].path);
+    }
+
+    console.log(link);
+    res.status(201).json(link);
+  }
+);
+
 router.post('/', auth, async (req, res) => {
   const postData = {
     text: req.body.text,
+    img: req.body.img,
     userId: req.user,
   };
   const post = new PostPersonal(postData);

@@ -214,6 +214,13 @@ class PostApiPersonal {
       method: 'delete',
     }).then((res) => res.json());
   }
+
+  static uploadImage(data) {
+    return fetch(`${PERSONAL_URL}/uploadPersonal`, {
+      method: 'post',
+      body: data,
+    }).then((res) => res.json());
+  }
 }
 
 function renderPostsPersonal(_postsPersonal = []) {
@@ -235,6 +242,7 @@ function onCreatePostPersonal() {
   if ($input.value) {
     const newPost = {
       text: $input.value,
+      img: filePath,
     };
     PostApiPersonal.create(newPost).then((post) => {
       postsPersonal.push(post);
@@ -302,6 +310,16 @@ $('#imgUpload').change(function () {
   const formData = new FormData(form);
 
   PostApi.uploadImage(formData).then((link) => {
+    filePath = link;
+    readURL(this);
+  });
+});
+
+$('#imgUploadPersonal').change(function () {
+  const form = document.getElementById('uploadImgFormPersonal');
+  const formData = new FormData(form);
+
+  PostApiPersonal.uploadImage(formData).then((link) => {
     filePath = link;
     readURL(this);
   });
