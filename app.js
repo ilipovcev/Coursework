@@ -19,6 +19,7 @@ const MongoBlog = require('connect-mongodb-session')(session);
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
 const errorMiddleware = require('./middleware/error');
+require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -31,7 +32,7 @@ const hbs = exphbs.create({
 
 const blog = new MongoBlog({
   collection: 'sessions',
-  uri: keys.MONGODB_URI,
+  uri: process.env.MONGODB_URI,
 });
 
 app.engine('hbs', hbs.engine);
@@ -43,7 +44,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(
   session({
-    secret: keys.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: blog,
