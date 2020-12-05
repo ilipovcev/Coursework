@@ -4,36 +4,19 @@ const card = (post) => {
   if (post.img.length == 0) {
     post.img[0] = '';
   }
-
-  if (post.userId.name === 'admin') {
-    post.userId.name = '👽admin';
-  } else {
-    post.userId.name = `🐱‍👤${post.userId.name}`;
-  }
-
-  let arrayImg = [];
-  for (let i = 0; i < post.img.length; i++) {
-    arrayImg.push(post.img[i]);
-  }
-
+  console.log(post.img);
   return `
-  <div id="modalInPost" class="myModal">
-    <span class="close cursor" onclick="closeModalPost()">&times;</span>
-    <div class="modal_content" id="contentInGalleryPost"></div>
-    <a class="prev" onclick="plusSlidesPost(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlidesPost(1)">&#10095;</a>
-  </div>
   <div class="row">
     <div class="col">
       <div class="card">
         <div class="name-user">
-          ${post.userId.name}
+          🐱‍👤${post.userId.name}
         </div>
         <hr>
         <div class="card-image">
-          <img src="${
-            post.img[0]
-          }" id="cardImg" onclick="createModalPost(${arrayImg})">
+          <img src="${post.img[0]}" id="cardImg" onclick="createModalPost('${
+    post.img
+  }')">
         </div>
         <div class="card-content">
           <p style='white-space: pre-line; word-break: break-all;'>${post.text.trim()}</p>
@@ -53,7 +36,6 @@ const card = (post) => {
 };
 
 const cardPersonal = (post) => {
-  console.log(post.userId.name);
   return `
   <div class="row">
     <div class="col">
@@ -112,10 +94,8 @@ class PostApi {
     }).then((res) => {
       const status = res.status;
       if (JSON.stringify(status) === JSON.stringify(403)) {
-        console.log('403');
         throw new Error('Вам нельзя удалить этот пост!');
       } else {
-        console.log('Не 403');
         res.json();
       }
     });
@@ -134,24 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
     posts = backendPosts.concat();
     renderPosts(posts);
   }).then;
-
   PostApiPersonal.fetch().then((backendPosts) => {
     postsPersonal = backendPosts.concat();
     renderPostsPersonal(postsPersonal);
   });
-
-  try {
-    document.querySelector('#btnSend').addEventListener('click', onCreatePost);
-  } catch (e) {
-    console.log(e);
-  }
-  try {
-    document
-      .querySelector('#btnSendPersonal')
-      .addEventListener('click', onCreatePostPersonal);
-  } catch (e) {
-    console.log(e);
-  }
   try {
     document.querySelector('#posts').addEventListener('click', onDeletePost);
   } catch (e) {
@@ -363,7 +329,6 @@ function createModal(input) {
     img.setAttribute('style', 'width:100%');
 
     divMySlides.append(img);
-
     divModalContent.append(divMySlides);
   }
 
@@ -379,7 +344,6 @@ function createModal(input) {
     img.setAttribute('style', 'opacity: 0.6; display: none');
 
     divColumn.append(img);
-
     divModalContent.append(divColumn);
   }
 
@@ -424,15 +388,21 @@ function showSlides(n) {
 //creating lightbox for posts
 
 function createModalPost(arrayImg) {
+  arrayImg = arrayImg.split(',');
   console.log(arrayImg);
+  console.log(arrayImg.length);
+  for (let i = 0; i < arrayImg.length; i++) {
+    arrayImg[i] = arrayImg[i].replace('imagesp', 'images\\160');
+  }
+  console.log(arrayImg);
+
   document.getElementById('modalInPost').style.display = 'block';
 
   const divMyModal = document.getElementById('modalInPost');
-
   const divModalContent = document.getElementById('contentInGalleryPost');
   divModalContent.innerText = ' ';
 
-  for (let i = 0; i < arrayImg; i++) {
+  for (let i = 0; i < arrayImg.length; i++) {
     const divMySlides = document.createElement('div');
     divMySlides.classList = 'mySlidesPost';
     divMySlides.setAttribute('style', 'display: none;');
@@ -442,7 +412,6 @@ function createModalPost(arrayImg) {
     img.setAttribute('style', 'width:100%');
 
     divMySlides.append(img);
-
     divModalContent.append(divMySlides);
   }
 
