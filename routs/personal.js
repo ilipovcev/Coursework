@@ -24,7 +24,6 @@ router.post(
       link.push(req.files[i].path);
     }
 
-    console.log(link);
     res.status(201).json(link);
   }
 );

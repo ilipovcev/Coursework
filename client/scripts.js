@@ -4,7 +4,7 @@ const card = (post) => {
   if (post.img.length == 0) {
     post.img[0] = '';
   }
-  console.log(post.img);
+
   return `
   <div class="row">
     <div class="col">
@@ -36,6 +36,9 @@ const card = (post) => {
 };
 
 const cardPersonal = (post) => {
+  if (post.img.length == 0) {
+    post.img[0] = '';
+  }
   return `
   <div class="row">
     <div class="col">
@@ -45,7 +48,9 @@ const cardPersonal = (post) => {
         </div>
         <hr>
         <div class="card-image">
-          <img src="" id="cardImg">
+          <img src="${post.img[0]}" id="cardImg" onclick="createModalPost('${
+    post.img
+  }')">
         </div>
         <div class="card-content">
           <p style='white-space: pre-line; word-break: break-all;'>${post.text.trim()}</p>
