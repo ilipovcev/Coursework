@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const helmet = require('helmet');
 const keys = require('./keys');
 const postRouter = require('./routs/post');
 const authRouter = require('./routs/auth');
@@ -19,7 +20,6 @@ const MongoBlog = require('connect-mongodb-session')(session);
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
 const errorMiddleware = require('./middleware/error');
-require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -32,7 +32,7 @@ const hbs = exphbs.create({
 
 const blog = new MongoBlog({
   collection: 'sessions',
-  uri: process.env.MONGODB_URI,
+  uri: keys.MONGODB_URI,
 });
 
 app.engine('hbs', hbs.engine);
@@ -44,13 +44,14 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: keys.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: blog,
   })
 );
 
+app.use(helmet());
 app.use(flash());
 app.use(compression());
 app.use(varMiddleware);

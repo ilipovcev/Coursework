@@ -153,6 +153,10 @@ function renderPosts(_posts = []) {
 function onCreatePost() {
   const writePost = document.querySelector('#writePost');
   const $input = document.querySelector('#input');
+  const arrImg = document.getElementById('dynamic');
+  const divPreview = document.getElementById('preview');
+  const imgUpload = document.getElementById('imgUpload');
+  const file = document.querySelector('.file-path');
 
   if ($input.value) {
     const newPost = {
@@ -165,6 +169,11 @@ function onCreatePost() {
       renderPosts(posts);
     });
 
+    file.value = '';
+    imgUpload.value = '';
+    if (arrImg) {
+      divPreview.innerHTML = '';
+    }
     $input.value = '';
     writePost.reset();
   }
@@ -241,6 +250,7 @@ function onCreatePostPersonal() {
       postsPersonal.push(post);
       renderPostsPersonal(postsPersonal);
     });
+    document.getElementById('imgUploadPersonal').value = '';
     $input.value = '';
     writePost.reset();
   }

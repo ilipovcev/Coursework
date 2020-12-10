@@ -259,3 +259,7 @@ body {
   padding-top: 8%;
   padding-bottom: 4%;
 }
+
+.tabs .tab a {
+  color: #000;
+}

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
+const User = require('../models/User');
 const auth = require('../middleware/auth');
 const fileMiddleware = require('../middleware/files');
 
@@ -46,6 +47,16 @@ router.delete('/:postId', async (req, res) => {
   const post = await Post.findById(req.params.postId);
   try {
     if (JSON.stringify(post.userId) === JSON.stringify(req.user._id)) {
+      await Post.deleteOne({ _id: req.params.postId, userId: req.user._id });
+      await req.user.deletePost(post);
+      res.status(200).json({
+        message: req.params.postId,
+      });
+    } else if (
+      JSON.stringify(req.user._id) ===
+      JSON.stringify('5f9d6a43cff3d912b82229e3')
+    ) {
+      req.user = await User.findById(post.userId);
       await Post.deleteOne({ _id: req.params.postId, userId: req.user._id });
       await req.user.deletePost(post);
       res.status(200).json({
