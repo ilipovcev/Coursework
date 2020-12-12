@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const helmet = require('helmet');
 const keys = require('./keys');
 const postRouter = require('./routs/post');
 const authRouter = require('./routs/auth');
@@ -51,7 +50,6 @@ app.use(
   })
 );
 
-app.use(helmet());
 app.use(flash());
 app.use(compression());
 app.use(varMiddleware);
