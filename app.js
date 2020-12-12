@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
@@ -10,7 +11,7 @@ const loadPersonalRouter = require('./routs/loadPersonal');
 const personalRouter = require('./routs/personal');
 const path = require('path');
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 const clientPath = path.join(__dirname, 'client');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
@@ -18,7 +19,6 @@ const MongoBlog = require('connect-mongodb-session')(session);
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
 const errorMiddleware = require('./middleware/error');
-require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
