@@ -6,3 +6,4 @@ node_modules
 *.jpeg
 !moleskine_40px.png
 /keys/keys.dev.js
+.env
