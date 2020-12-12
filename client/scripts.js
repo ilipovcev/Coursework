@@ -10,7 +10,7 @@ const card = (post) => {
     <div class="col">
       <div class="card">
         <div class="name-user">
-          🐱‍👤${post.userId.name}
+          ${post.userId.name}
         </div>
         <hr>
         <div class="card-image">
@@ -44,7 +44,7 @@ const cardPersonal = (post) => {
     <div class="col">
       <div class="card">
         <div class="name-user-personal">
-          😎${post.userId.name}
+          ${post.userId.name}
         </div>
         <hr>
         <div class="card-image">
@@ -241,6 +241,11 @@ function renderPostsPersonal(_postsPersonal = []) {
 function onCreatePostPersonal() {
   const writePost = document.querySelector('#writePost');
   const $input = document.querySelector('#input');
+  const arrImg = document.getElementById('dynamic');
+  const divPreview = document.getElementById('preview');
+  const imgUpload = document.getElementById('imgUploadPersonal');
+  const file = document.querySelector('.file-path');
+
   if ($input.value) {
     const newPost = {
       text: $input.value,
@@ -250,7 +255,12 @@ function onCreatePostPersonal() {
       postsPersonal.push(post);
       renderPostsPersonal(postsPersonal);
     });
-    document.getElementById('imgUploadPersonal').value = '';
+
+    file.value = '';
+    imgUpload.value = '';
+    if (arrImg) {
+      divPreview.innerHTML = '';
+    }
     $input.value = '';
     writePost.reset();
   }
