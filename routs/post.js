@@ -53,8 +53,7 @@ router.delete('/:postId', async (req, res) => {
         message: req.params.postId,
       });
     } else if (
-      JSON.stringify(req.user._id) ===
-      JSON.stringify('5f9d6a43cff3d912b82229e3')
+      JSON.stringify(req.user._id) === JSON.stringify(process.env.ADMIN_ID)
     ) {
       req.user = await User.findById(post.userId);
       await Post.deleteOne({ _id: req.params.postId, userId: req.user._id });
