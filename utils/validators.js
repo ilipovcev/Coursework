@@ -28,7 +28,26 @@ exports.registerValidators = [
       return true;
     })
     .trim(),
-  body('name', 'Имя должно быть минимум 3 символа').isLength({ min: 3 }).trim(),
+  body('name')
+    .isLength({ min: 3, max: 15 })
+    .withMessage('Имя должно быть минимум 3 символа и максимум 15 символов')
+    .trim()
+    .escape()
+    .custom((value, { req }) => {
+      try {
+        const regScript = /<script[\s\S]*?>[\s\S]*?<\/script>/gi;
+        const regHTML = /<[^<>]+>/gi;
+
+        if (value.match(regScript)) {
+          throw new Error('Введите корректное имя!');
+        }
+        if (value.match(regHTML)) {
+          throw new Error('Введите корректное имя!');
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }),
 ];
 
 exports.loginValidators = [

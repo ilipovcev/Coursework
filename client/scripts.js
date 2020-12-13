@@ -26,7 +26,7 @@ const card = (post) => {
           </div>
         </div>
         <div class='card-action actions'>
-            <button class='btn btn-small removePost' data-id='${
+            <button class='btn btn-small red darken-4 removePost' data-id='${
               post._id
             }''>Удалить</button>
         </div>     
@@ -60,7 +60,7 @@ const cardPersonal = (post) => {
           </div>
         </div>
         <div class='card-action actions'>
-            <button class='btn btn-small removePostPersonal' data-id='${
+            <button class='btn btn-small red darken-4 removePostPersonal' data-id='${
               post._id
             }'>Удалить</button>
         </div>     
@@ -182,6 +182,8 @@ function onCreatePost() {
       img: filePath,
     };
 
+    filePath = [];
+
     PostApi.create(newPost).then((post) => {
       posts.push(post);
       renderPosts(posts);
@@ -267,10 +269,14 @@ function onCreatePostPersonal() {
   if ($input.value) {
     let str = $input.value;
     str = findXSS(str);
+
     const newPost = {
       text: str,
       img: filePath,
     };
+
+    filePath = [];
+
     PostApiPersonal.create(newPost).then((post) => {
       postsPersonal.push(post);
       renderPostsPersonal(postsPersonal);
