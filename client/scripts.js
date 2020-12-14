@@ -13,7 +13,7 @@ const card = (post) => {
           ${post.userId.name}
         </div>
         <hr>
-        <div class="card-image">
+        <div class="card-image hoverable">
           <img src="${post.img[0]}" id="cardImg" onclick="createModalPost('${
     post.img
   }')">
@@ -47,7 +47,7 @@ const cardPersonal = (post) => {
           ${post.userId.name}
         </div>
         <hr>
-        <div class="card-image">
+        <div class="card-image hoverable ">
           <img src="${post.img[0]}" id="cardImg" onclick="createModalPost('${
     post.img
   }')">
@@ -146,7 +146,7 @@ function renderPosts(_posts = []) {
       $(posts).prepend(card(v));
     });
   } else {
-    posts.innerHTML = ' ';
+    posts.innerHTML = '<h1>Постов нет :(</h1>';
   }
 }
 
