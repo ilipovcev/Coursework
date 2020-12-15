@@ -46,14 +46,14 @@ router.post('/', auth, async (req, res) => {
 router.delete('/:postId', async (req, res) => {
   const post = await Post.findById(req.params.postId);
   try {
-    if (JSON.stringify(post.userId) === JSON.stringify(req.user._id)) {
+    if (JSON.stringify(post.userId) == JSON.stringify(req.user._id)) {
       await Post.deleteOne({ _id: req.params.postId, userId: req.user._id });
       await req.user.deletePost(post);
       res.status(200).json({
         message: req.params.postId,
       });
     } else if (
-      JSON.stringify(req.user._id) === JSON.stringify(process.env.ADMIN_ID)
+      JSON.stringify(req.user._id) == JSON.stringify(process.env.ADMIN_ID)
     ) {
       req.user = await User.findById(post.userId);
       await Post.deleteOne({ _id: req.params.postId, userId: req.user._id });
