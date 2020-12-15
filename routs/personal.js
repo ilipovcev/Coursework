@@ -15,7 +15,7 @@ router.get('/', auth, async (req, res) => {
 
 router.post(
   '/uploadPersonal',
-  fileMiddleware.array('imgUploadPersonal', 10),
+  fileMiddleware.array('imgUploadPersonal', 5),
   async (req, res) => {
     let link = [];
 

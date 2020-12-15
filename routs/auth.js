@@ -50,11 +50,11 @@ router.post('/login', loginValidators, async (req, res) => {
 });
 
 router.post('/register', registerValidators, async (req, res) => {
-  console.log(req.body);
   try {
     const { email, password, name } = req.body;
 
     const errors = validationResult(req);
+    console.log(errors);
     if (!errors.isEmpty()) {
       req.flash('registerError', errors.array()[0].msg);
       return res.status(422).redirect('/auth#register');

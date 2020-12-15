@@ -20,7 +20,7 @@ const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
 const errorMiddleware = require('./middleware/error');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(bodyParser.json());
 

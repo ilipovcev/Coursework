@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 
 router.post(
   '/upload',
-  fileMiddleware.array('imgUpload', 10),
+  fileMiddleware.array('imgUpload', 5),
   async (req, res) => {
     let link = [];
 
