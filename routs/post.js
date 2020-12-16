@@ -14,6 +14,7 @@ router.post(
   '/upload',
   fileMiddleware.array('imgUpload', 5),
   async (req, res) => {
+    console.log(req.user);
     let link = [];
 
     for (let i = 0; i < req.files.length; i++) {

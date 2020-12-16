@@ -19,18 +19,18 @@ const card = (post) => {
   }')">
         </div>
         <div class="card-content">
-          <p style='white-space: pre-line; word-break: break-all;'>${post.text.trim()}</p>
+          <div style='word-break: normal; white-space: pre-line;'>
+            <p>${post.text.trim()}</p>
+          </div>
           <small class='cardDate'>${new Date(
             post.date
           ).toLocaleDateString()}</small>
-          </div>
         </div>
-        <div class='card-action actions'>
-            <button class='btn btn-small red darken-4 removePost' data-id='${
-              post._id
-            }''>Удалить</button>
-        </div>     
-       </div>
+        <button class='btn btn-small red darken-4 removePost' data-id='${
+          post._id
+        }''>Удалить</button>
+      </div>     
+    </div>
   </div>
   `;
 };
@@ -53,7 +53,7 @@ const cardPersonal = (post) => {
   }')">
         </div>
         <div class="card-content">
-          <p style='white-space: pre-line; word-break: break-all;'>${post.text.trim()}</p>
+          <p style='white-space: pre-line; word-break: normal;'>${post.text.trim()}</p>
           <small class='cardDate'>${new Date(
             post.date
           ).toLocaleDateString()}</small>

@@ -46,21 +46,11 @@ body {
   font-weight: 400;
 }
 
-.btn {
-  top: -50px;
-  float: right;
-  right: 2%;
-}
-
 .brand-logo {
   left: 25px;
 }
 .boxInput {
   padding-top: 75px;
-}
-
-.card-content {
-  background-color: #f2fafa;
 }
 
 .card-action-auth {
@@ -70,6 +60,7 @@ body {
 
 .card {
   padding: 5px;
+  background-color: #bebebe;
 }
 
 .preloader-wrapper {
@@ -98,12 +89,12 @@ body {
 }
 
 .input-field #input:focus {
-  border-bottom: 1px solid #979797;
-  box-shadow: 0 1px 0 0 #979797;
+  border-bottom: 1px solid #555555;
+  box-shadow: 0 1px 0 0 #555555;
 }
 
 .input-field .prefix.active {
-  color: #979797 !important;
+  color: #555555 !important;
 }
 
 .input-field #input:focus + label {
@@ -262,4 +253,21 @@ body {
 
 .tabs .tab a {
   color: #000;
+}
+
+.submitBtn {
+  position: relative;
+  float: right;
+  right: 2%;
+}
+
+.removePost {
+  position: relative;
+  margin: 5px;
+}
+
+#btnSendPersonal {
+  position: relative;
+  float: right;
+  right: 2%;
 }
