@@ -1,14 +1,23 @@
 <nav class="header">
   <div class="nav-wrapper">
     <a href="/" class="brand-logo">Лента</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
       {{#if isAuth}}
-        <li><a href="/personal">Личная лента</a></li>
-        <li><a href="/auth/logout">Выйти</a></li>
+      <li><a href="/personal">Личная лента</a></li>
+      <li><a href="/auth/logout">Выйти</a></li>
       {{else}}
-        <li><a href="/auth#login">Вход</a></li>
+      <li><a href="/auth#login">Вход</a></li>
       {{/if}}
-      
     </ul>
   </div>
 </nav>
+
+<ul class="sidenav" id="mobile-demo">
+  {{#if isAuth}}
+  <li><a href="/personal">Личная лента</a></li>
+  <li><a href="/auth/logout">Выйти</a></li>
+  {{else}}
+  <li><a href="/auth#login">Вход</a></li>
+  {{/if}}
+</ul>

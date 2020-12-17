@@ -75,6 +75,10 @@ let postsPersonal = [];
 const BASE_URL = '/api/post';
 const PERSONAL_URL = '/personal/posts';
 
+$(document).ready(function () {
+  $('.sidenav').sidenav();
+});
+
 class PostApi {
   static fetch() {
     return fetch(BASE_URL, {
@@ -150,22 +154,6 @@ function renderPosts(_posts = []) {
   }
 }
 
-function findXSS(str) {
-  const regScript = /<script[\s\S]*?>[\s\S]*?<\/script>/gi;
-  const regHTML = /<[^<>]+>/gi;
-
-  if (str.match(regScript)) {
-    str = '😜';
-    return str;
-  }
-  if (str.match(regHTML)) {
-    str = '😜';
-    return str;
-  }
-
-  return str;
-}
-
 function onCreatePost() {
   const writePost = document.querySelector('#writePost');
   const $input = document.querySelector('#input');
@@ -175,10 +163,8 @@ function onCreatePost() {
   const file = document.querySelector('.file-path');
 
   if ($input.value) {
-    let str = $input.value;
-    str = findXSS(str);
     const newPost = {
-      text: str,
+      text: $input.value,
       img: filePath,
     };
 
@@ -267,11 +253,8 @@ function onCreatePostPersonal() {
   const file = document.querySelector('.file-path');
 
   if ($input.value) {
-    let str = $input.value;
-    str = findXSS(str);
-
     const newPost = {
-      text: str,
+      text: $input.value,
       img: filePath,
     };
 

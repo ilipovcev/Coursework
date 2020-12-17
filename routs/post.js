@@ -4,6 +4,7 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const fileMiddleware = require('../middleware/files');
+const { postValidators } = require('../utils/validators');
 
 router.get('/', async (req, res) => {
   const posts = await Post.find({}).populate('userId', 'email name');
@@ -27,7 +28,7 @@ router.post(
   }
 );
 
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, postValidators, async (req, res) => {
   const postData = {
     text: req.body.text,
     img: req.body.img,

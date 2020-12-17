@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const PostPersonal = require('../models/PostPersonal');
 const fileMiddleware = require('../middleware/files');
+const { postValidators } = require('../utils/validators');
 
 router.get('/', auth, async (req, res) => {
   const posts = await PostPersonal.find({ userId: req.user }).populate(
@@ -28,7 +29,7 @@ router.post(
   }
 );
 
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, postValidators, async (req, res) => {
   const postData = {
     text: req.body.text,
     img: req.body.img,
