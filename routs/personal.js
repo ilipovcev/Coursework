@@ -76,6 +76,13 @@ router.delete('/:postId', auth, async (req, res) => {
   const post = await PostPersonal.findById(req.params.postId);
   await PostPersonal.deleteOne({ _id: req.params.postId });
   await req.user.deletePost(post);
+
+  for (let i = 0; i < post.img.length; i++) {
+    fs.unlink(post.img[i], (err) => {
+      if (err) throw err;
+      console.log('File was deleted');
+    });
+  }
   res.status(200).json({
     message: req.params.postId,
   });

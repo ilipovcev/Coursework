@@ -203,7 +203,6 @@ function onDeletePost(event) {
     const decision = confirm('Удалить пост?');
     if (decision) {
       const id = event.target.getAttribute('data-id');
-      //TODO удаление фотографий с сервера
       PostApi.remove(id)
         .then(() => {
           const postIndex = posts.findIndex((post) => post._id === id);
@@ -347,7 +346,7 @@ function readURL(input) {
         img.setAttribute('onclick', `openModal(); currentSlide(${i + 1})`);
         img.setAttribute(
           'style',
-          'padding: 0 8px; float: left; width: 25%; transition: 0.3s;'
+          'padding: 8px 8px; float: left; width: 40%; transition: 0.3s;'
         );
         img.classList = 'hover-shadow';
         img.classList.add('HoverClass2');
@@ -370,7 +369,7 @@ $('#imgUpload').change(function () {
   const file = document.querySelector('.file-path');
   const btnDeleteImg = document.querySelector('.btnDeleteImg');
 
-  btnDeleteImg.removeAttribute('hidden');
+  btnDeleteImg.style.display = 'block';
 
   const span = document.createElement('span');
   span.innerText = 'Загрузка...';
@@ -440,7 +439,7 @@ function clearPreview() {
   file.value = '';
   imgUpload.value = '';
   divPreview.innerHTML = '';
-  btnDeleteImg.setAttribute('hidden', 'true');
+  btnDeleteImg.style.display = 'none';
   filePath = [];
 }
 
