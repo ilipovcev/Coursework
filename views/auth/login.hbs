@@ -56,9 +56,9 @@
         </div>
 
         <div class="input-field">
-          <input id="name" name="name" type="text" class="validate" required value="{{data.name}}">
+          <input id="name" name="name" type="text" class="validate" minlength="3" maxlength="32" required value="{{data.name}}">
           <label for="name">Ваше имя</label>
-          <span class="helper-text" data-error="Введите имя"></span>
+          <span class="helper-text" data-error="Имя должно содержать от 3 до 32 символов"></span>
         </div>
 
         <button id="btnReg" class="btn btn-primary btnReg" type="submit">Зарегистрироваться</button>

@@ -38,13 +38,17 @@
             </div>
           </div>
         </form>
-
-        <button class="btn waves-effect waves-light green submitBtn" type="submit" name="action" id="btnSend" onclick="onCreatePost()">Отправить
+        <div class="submitBtn">
+          <button class="btn waves-effect waves-light green" type="submit" name="action" id="btnSend" onclick="onCreatePost()">Отправить
           <i class="material-icons right">send</i>
         </button>
+        </div>
+        <div class="btnDeleteImg" hidden><button class="btn-small" onclick="clearPreview()">Удалить фото</button></div>
       </form>
       
-      <div id="preview" class="row"></div>
+      <div id="preview"></div>
+      
+      
       {{/if}}
 
       <div id="modalInPost" class="myModal">

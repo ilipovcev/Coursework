@@ -1,32 +1,41 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const Post = require('../models/Post');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const fileMiddleware = require('../middleware/files');
 const { postValidators } = require('../utils/validators');
+const fs = require('fs');
+
+const file = fileMiddleware.array('imgUpload', 5);
 
 router.get('/', async (req, res) => {
   const posts = await Post.find({}).populate('userId', 'email name');
   res.status(200).json(posts);
 });
 
-router.post(
-  '/upload',
-  fileMiddleware.array('imgUpload', 5),
-  async (req, res) => {
-    console.log(req.user);
-    let link = [];
+router.post('/upload', async (req, res) => {
+  file(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      res.status(406).json();
+    } else {
+      try {
+        let link = [];
 
-    for (let i = 0; i < req.files.length; i++) {
-      console.log(req.files[i].path);
-      link.push(req.files[i].path);
+        for (let i = 0; i < req.files.length; i++) {
+          console.log(req.files[i].path);
+          link.push(req.files[i].path);
+        }
+
+        console.log(link);
+        res.status(201).json(link);
+      } catch (e) {
+        console.log(e);
+      }
     }
-
-    console.log(link);
-    res.status(201).json(link);
-  }
-);
+  });
+});
 
 router.post('/', auth, postValidators, async (req, res) => {
   const postData = {
@@ -42,6 +51,22 @@ router.post('/', auth, postValidators, async (req, res) => {
     res.status(201).json(post);
   } catch (e) {
     console.log(e);
+  }
+});
+
+router.post('/deleteImg', async (req, res) => {
+  try {
+    console.log(req.body);
+    const links = req.body;
+    for (let i = 0; i < links.length; i++) {
+      fs.unlink(links[i], (err) => {
+        if (err) throw err;
+        console.log('File was deleted');
+      });
+    }
+    res.status(200).json();
+  } catch (e) {
+    res.status(406);
   }
 });
 

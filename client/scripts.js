@@ -9,7 +9,7 @@ const card = (post) => {
   <div class="row">
     <div class="col">
       <div class="card">
-        <div class="name-user">
+        <div class="name-user" style='word-break: normal; white-space: pre-line;'>
           ${post.userId.name}
         </div>
         <hr>
@@ -116,6 +116,17 @@ class PostApi {
       body: data,
     }).then((res) => res.json());
   }
+
+  static deleteImg(pathImg) {
+    return fetch(`${BASE_URL}/deleteImg`, {
+      method: 'post',
+      body: JSON.stringify(pathImg),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -161,6 +172,7 @@ function onCreatePost() {
   const divPreview = document.getElementById('preview');
   const imgUpload = document.getElementById('imgUpload');
   const file = document.querySelector('.file-path');
+  const btnDeleteImg = document.querySelector('.btnDeleteImg');
 
   if ($input.value) {
     const newPost = {
@@ -182,6 +194,7 @@ function onCreatePost() {
     }
     $input.value = '';
     writePost.reset();
+    btnDeleteImg.setAttribute('hidden', 'true');
   }
 }
 
@@ -190,11 +203,22 @@ function onDeletePost(event) {
     const decision = confirm('Удалить пост?');
     if (decision) {
       const id = event.target.getAttribute('data-id');
-      PostApi.remove(id).then(() => {
-        const postIndex = posts.findIndex((post) => post._id === id);
-        posts.splice(postIndex, 1);
-        renderPosts(posts);
-      });
+      //TODO удаление фотографий с сервера
+      PostApi.remove(id)
+        .then(() => {
+          const postIndex = posts.findIndex((post) => post._id === id);
+          posts.splice(postIndex, 1);
+          renderPosts(posts);
+          iziToast.success({
+            title: 'Удалено',
+          });
+        })
+        .catch(() => {
+          iziToast.error({
+            title: 'Отклонено',
+            message: 'Вам запрещено удалять чужой пост',
+          });
+        });
     }
   }
 }
@@ -228,6 +252,17 @@ class PostApiPersonal {
       method: 'post',
       body: data,
     }).then((res) => res.json());
+  }
+
+  static deleteImg(pathImg) {
+    return fetch(`${PERSONAL_URL}/deleteImg`, {
+      method: 'post',
+      body: JSON.stringify(pathImg),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res);
   }
 }
 
@@ -290,7 +325,7 @@ function onDeletePostPersonal(event) {
 }
 
 M.Tabs.init(document.querySelectorAll('.tabs'));
-
+//превью
 function readURL(input) {
   const arrImg = document.getElementById('dynamic');
   const divPreview = document.getElementById('preview');
@@ -330,23 +365,98 @@ function readURL(input) {
 $('#imgUpload').change(function () {
   const form = document.getElementById('uploadImgForm');
   const formData = new FormData(form);
+  const divPreview = document.getElementById('preview');
+  const imgUpload = document.getElementById('imgUpload');
+  const file = document.querySelector('.file-path');
+  const btnDeleteImg = document.querySelector('.btnDeleteImg');
 
-  PostApi.uploadImage(formData).then((link) => {
-    filePath = link;
-    readURL(this);
-  });
+  btnDeleteImg.removeAttribute('hidden');
+
+  const span = document.createElement('span');
+  span.innerText = 'Загрузка...';
+  span.setAttribute('style', 'margin-left: 10px');
+  divPreview.append(span);
+
+  if (filePath !== []) {
+    console.log(filePath);
+    PostApi.deleteImg(filePath);
+  }
+
+  PostApi.uploadImage(formData)
+    .then((link) => {
+      filePath = link;
+      readURL(this);
+      span.remove();
+    })
+    .catch((reject) => {
+      iziToast.error({ title: 'Ошибка', message: 'Файл не загружен' });
+      file.value = '';
+      imgUpload.value = '';
+      divPreview.innerHTML = '';
+      span.remove();
+    });
 });
 
 $('#imgUploadPersonal').change(function () {
   const form = document.getElementById('uploadImgFormPersonal');
   const formData = new FormData(form);
+  const divPreview = document.getElementById('preview');
+  const imgUpload = document.getElementById('imgUploadPersonal');
+  const file = document.querySelector('.file-path');
 
-  PostApiPersonal.uploadImage(formData).then((link) => {
-    filePath = link;
-    readURL(this);
-  });
+  const span = document.createElement('span');
+  span.innerText = 'Загрузка...';
+  span.setAttribute('style', 'margin-left: 10px');
+  divPreview.append(span);
+
+  if (filePath != []) {
+    PostApiPersonal.deleteImg(filePath).then((res) => res.json());
+  }
+
+  PostApiPersonal.uploadImage(formData)
+    .then((link) => {
+      filePath = link;
+      readURL(this);
+      span.remove();
+    })
+    .catch((reject) => {
+      iziToast.error({ title: 'Ошибка', message: 'Файл не загружен' });
+      file.value = '';
+      imgUpload.value = '';
+      divPreview.innerHTML = '';
+      span.remove();
+    });
 });
 
+//очистка превью загружаемых фото
+function clearPreview() {
+  const file = document.querySelector('.file-path');
+  const divPreview = document.getElementById('preview');
+  const imgUpload = document.getElementById('imgUpload');
+  const btnDeleteImg = document.querySelector('.btnDeleteImg');
+
+  PostApi.deleteImg(filePath);
+
+  file.value = '';
+  imgUpload.value = '';
+  divPreview.innerHTML = '';
+  btnDeleteImg.setAttribute('hidden', 'true');
+  filePath = [];
+}
+
+function clearPreviewPersonal() {
+  const file = document.querySelector('.file-path');
+  const divPreview = document.getElementById('preview');
+  const imgUpload = document.getElementById('imgUploadPersonal');
+
+  PostApiPersonal.deleteImg(filePath);
+
+  file.value = '';
+  imgUpload.value = '';
+  divPreview.innerHTML = '';
+}
+
+//lightbox
 function createModal(input) {
   const divMyModal = document.getElementById('myModal');
 
