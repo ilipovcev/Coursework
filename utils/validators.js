@@ -3,8 +3,8 @@ const User = require('../models/User');
 
 exports.registerValidators = [
   body('email')
-    //.isEmail()
-    //.withMessage('Введите корректный email')
+    .isEmail()
+    .withMessage('Введите корректный email')
     .custom(async (value, { req }) => {
       try {
         const user = await User.findOne({ email: value });
@@ -28,7 +28,11 @@ exports.registerValidators = [
       return true;
     })
     .trim(),
-  body('name').trim().escape(),
+  body('name')
+    .trim()
+    .escape()
+    .isLength({ min: 3, max: 20 })
+    .withMessage('Имя не должно содержать более 20 символов!'),
 ];
 
 exports.loginValidators = [
