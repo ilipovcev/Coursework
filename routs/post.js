@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
   res.status(200).json(posts);
 });
 
-router.post('/upload', async (req, res) => {
+router.post('/upload', auth, async (req, res) => {
   file(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       res.status(406).json();
@@ -54,7 +54,7 @@ router.post('/', auth, postValidators, async (req, res) => {
   }
 });
 
-router.post('/deleteImg', async (req, res) => {
+router.post('/deleteImg', auth, async (req, res) => {
   try {
     console.log(req.body);
     const links = req.body;
@@ -77,7 +77,7 @@ router.post('/deleteImg', async (req, res) => {
   }
 });
 
-router.delete('/:postId', async (req, res) => {
+router.delete('/:postId', auth, async (req, res) => {
   const post = await Post.findById(req.params.postId);
   try {
     if (JSON.stringify(post.userId) == JSON.stringify(req.user._id)) {

@@ -18,7 +18,7 @@ router.get('/', auth, async (req, res) => {
   res.status(200).json(posts);
 });
 
-router.post('/uploadPersonal', async (req, res) => {
+router.post('/uploadPersonal', auth, async (req, res) => {
   file(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       res.status(406).json();
@@ -40,7 +40,7 @@ router.post('/uploadPersonal', async (req, res) => {
   });
 });
 
-router.post('/deleteImg', async (req, res) => {
+router.post('/deleteImg', auth, async (req, res) => {
   try {
     console.log(req.body);
     const links = req.body;
