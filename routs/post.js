@@ -59,14 +59,18 @@ router.post('/deleteImg', async (req, res) => {
     console.log(req.body);
     const links = req.body;
     for (let i = 0; i < links.length; i++) {
-      fs.unlink(links[i], (err) => {
-        if (err) throw err;
-        console.log('File was deleted');
-      });
+      if (links[i].includes('images\\')) {
+        fs.unlink(links[i], (err) => {
+          if (err) throw err;
+          console.log('File was deleted');
+        });
+        res.status(200).json();
+      } else {
+        res.status(406).json();
+      }
     }
-    res.status(200).json();
   } catch (e) {
-    res.status(406);
+    res.status(406).json();
   }
 });
 

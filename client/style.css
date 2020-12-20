@@ -264,7 +264,23 @@ body {
   margin: 2%;
 }
 
+.submitBtnPersonal {
+  display: block;
+  position: relative;
+  float: right;
+  right: 2%;
+  margin: 2%;
+}
+
 .btnDeleteImg {
+  display: none;
+  position: relative;
+  float: right;
+  top: 70px;
+  left: 150px;
+}
+
+.btnDeleteImgPersonal {
   display: none;
   position: relative;
   float: right;
@@ -277,14 +293,18 @@ body {
   margin: 5px;
 }
 
-#btnSendPersonal {
+.removePostPersonal {
   position: relative;
-  float: right;
-  right: 2%;
+  margin: 5px;
 }
 
 #preview {
   display: inline-block;
   position: relative;
   top: 50px;
+}
+
+#postsById {
+  position: relative;
+  top: 100px;
 }

@@ -35,15 +35,19 @@
             </div>
           </div>
         </form>
+        <div class="submitBtnPersonal">
+          <button class="btn waves-effect waves-light green" type="submit" name="action"             onclick="onCreatePostPersonal()" id="btnSendPersonal">Отправить
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
 
-        <div id="preview" class="gallery"></div>
-
-        <button class="btn waves-effect waves-light green" type="submit" name="action" id="btnSendPersonal"       onclick="onCreatePostPersonal()">Отправить
-          <i class="material-icons right">send</i>
-        </button>
+        <div class="btnDeleteImgPersonal">
+          <button class="btn-small" onclick="clearPreviewPersonal()">Удалить фото</button>
+        </div>
+        
       </form>
 
-      <div id="prewImages"></div>
+      <div id="preview"></div>
 
       <div id="modalInPost" class="myModal">
         <span class="close cursor" onclick="closeModalPost()">&times;</span>
@@ -51,7 +55,7 @@
         <a class="prev" onclick="plusSlidesPost(-1)">&#10094;</a>
         <a class="next" onclick="plusSlidesPost(1)">&#10095;</a>
       </div>
-      <div id="postsById" style = 'width:100%;'>
+      <div id="postsById" style='width:100%;'>
         <div id="preloader">
           <div class="preloader-wrapper small active">
             <div class="spinner-layer spinner-green-only">

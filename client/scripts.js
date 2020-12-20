@@ -9,7 +9,7 @@ const card = (post) => {
   <div class="row">
     <div class="col">
       <div class="card">
-        <div class="name-user" style='word-break: normal; white-space: pre-line;'>
+        <div class="name-user" style='word-break: break-word; white-space: pre-line;'>
           ${post.userId.name}
         </div>
         <hr>
@@ -19,7 +19,7 @@ const card = (post) => {
   }')">
         </div>
         <div class="card-content">
-          <div style='word-break: normal; white-space: pre-line;'>
+          <div style='word-break: break-word; white-space: pre-line;'>
             <p>${post.text.trim()}</p>
           </div>
           <small class='cardDate'>${new Date(
@@ -43,7 +43,7 @@ const cardPersonal = (post) => {
   <div class="row">
     <div class="col">
       <div class="card">
-        <div class="name-user-personal">
+        <div class="name-user-personal" style='word-break: break-word; white-space: pre-line;>
           ${post.userId.name}
         </div>
         <hr>
@@ -53,17 +53,17 @@ const cardPersonal = (post) => {
   }')">
         </div>
         <div class="card-content">
-          <p style='white-space: pre-line; word-break: normal;'>${post.text.trim()}</p>
+          <div style='word-break: break-word; white-space: pre-line;'>
+            <p>${post.text.trim()}</p>
+          </div> 
           <small class='cardDate'>${new Date(
             post.date
           ).toLocaleDateString()}</small>
-          </div>
+          
         </div>
-        <div class='card-action actions'>
-            <button class='btn btn-small red darken-4 removePostPersonal' data-id='${
-              post._id
-            }'>Удалить</button>
-        </div>     
+          <button class='btn btn-small red darken-4 removePostPersonal' data-id='${
+            post._id
+          }'>Удалить</button>   
        </div>
   </div>
   `;
@@ -194,7 +194,7 @@ function onCreatePost() {
     }
     $input.value = '';
     writePost.reset();
-    btnDeleteImg.setAttribute('hidden', 'true');
+    btnDeleteImg.style.display = 'none';
   }
 }
 
@@ -285,6 +285,7 @@ function onCreatePostPersonal() {
   const divPreview = document.getElementById('preview');
   const imgUpload = document.getElementById('imgUploadPersonal');
   const file = document.querySelector('.file-path');
+  const btnDeleteImg = document.querySelector('.btnDeleteImgPersonal');
 
   if ($input.value) {
     const newPost = {
@@ -306,6 +307,7 @@ function onCreatePostPersonal() {
     }
     $input.value = '';
     writePost.reset();
+    btnDeleteImg.style.display = 'none';
   }
 }
 
@@ -402,6 +404,9 @@ $('#imgUploadPersonal').change(function () {
   const divPreview = document.getElementById('preview');
   const imgUpload = document.getElementById('imgUploadPersonal');
   const file = document.querySelector('.file-path');
+  const btnDeleteImg = document.querySelector('.btnDeleteImgPersonal');
+
+  btnDeleteImg.style.display = 'block';
 
   const span = document.createElement('span');
   span.innerText = 'Загрузка...';
@@ -409,7 +414,7 @@ $('#imgUploadPersonal').change(function () {
   divPreview.append(span);
 
   if (filePath != []) {
-    PostApiPersonal.deleteImg(filePath).then((res) => res.json());
+    PostApiPersonal.deleteImg(filePath);
   }
 
   PostApiPersonal.uploadImage(formData)
@@ -447,12 +452,15 @@ function clearPreviewPersonal() {
   const file = document.querySelector('.file-path');
   const divPreview = document.getElementById('preview');
   const imgUpload = document.getElementById('imgUploadPersonal');
+  const btnDeleteImg = document.querySelector('.btnDeleteImgPersonal');
 
   PostApiPersonal.deleteImg(filePath);
 
   file.value = '';
   imgUpload.value = '';
   divPreview.innerHTML = '';
+  btnDeleteImg.style.display = 'none';
+  filePath = [];
 }
 
 //lightbox
