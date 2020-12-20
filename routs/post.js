@@ -58,7 +58,7 @@ router.post('/deleteImg', auth, async (req, res) => {
   try {
     console.log(req.body);
     const links = req.body;
-    if ((req.body = [])) {
+    if (links == []) {
       return res.status(200).json();
     }
     for (let i = 0; i < links.length; i++) {
@@ -84,12 +84,17 @@ router.delete('/:postId', auth, async (req, res) => {
       await Post.deleteOne({ _id: req.params.postId, userId: req.user._id });
       await req.user.deletePost(post);
 
-      for (let i = 0; i < post.img.length; i++) {
-        fs.unlink(post.img[i], (err) => {
-          if (err) throw err;
-          console.log('File was deleted');
-        });
+      if (post.img) {
+        for (let i = 0; i < post.img.length; i++) {
+          fs.unlink(post.img[i], (err) => {
+            if (err) {
+              return res.status(404).json();
+            }
+            console.log('File was deleted');
+          });
+        }
       }
+
       res.status(200).json({
         message: req.params.postId,
       });
@@ -99,6 +104,18 @@ router.delete('/:postId', auth, async (req, res) => {
       req.user = await User.findById(post.userId);
       await Post.deleteOne({ _id: req.params.postId, userId: req.user._id });
       await req.user.deletePost(post);
+
+      if (post.img) {
+        for (let i = 0; i < post.img.length; i++) {
+          fs.unlink(post.img[i], (err) => {
+            if (err) {
+              return res.status(404).json();
+            }
+            console.log('File was deleted');
+          });
+        }
+      }
+
       res.status(200).json({
         message: req.params.postId,
       });
