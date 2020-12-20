@@ -44,6 +44,9 @@ router.post('/deleteImg', async (req, res) => {
   try {
     console.log(req.body);
     const links = req.body;
+    if ((req.body = [])) {
+      return res.status(200).json();
+    }
     for (let i = 0; i < links.length; i++) {
       if (links[i].includes('images\\')) {
         fs.unlink(links[i], (err) => {

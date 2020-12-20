@@ -43,7 +43,7 @@ const cardPersonal = (post) => {
   <div class="row">
     <div class="col">
       <div class="card">
-        <div class="name-user-personal" style='word-break: break-word; white-space: pre-line;>
+        <div class="name-user-personal" style='word-break: break-word; white-space: pre-line;'>
           ${post.userId.name}
         </div>
         <hr>
@@ -371,8 +371,6 @@ $('#imgUpload').change(function () {
   const file = document.querySelector('.file-path');
   const btnDeleteImg = document.querySelector('.btnDeleteImg');
 
-  btnDeleteImg.style.display = 'block';
-
   const span = document.createElement('span');
   span.innerText = 'Загрузка...';
   span.setAttribute('style', 'margin-left: 10px');
@@ -396,6 +394,7 @@ $('#imgUpload').change(function () {
       divPreview.innerHTML = '';
       span.remove();
     });
+  btnDeleteImg.style.display = 'block';
 });
 
 $('#imgUploadPersonal').change(function () {
@@ -405,8 +404,6 @@ $('#imgUploadPersonal').change(function () {
   const imgUpload = document.getElementById('imgUploadPersonal');
   const file = document.querySelector('.file-path');
   const btnDeleteImg = document.querySelector('.btnDeleteImgPersonal');
-
-  btnDeleteImg.style.display = 'block';
 
   const span = document.createElement('span');
   span.innerText = 'Загрузка...';
@@ -430,6 +427,7 @@ $('#imgUploadPersonal').change(function () {
       divPreview.innerHTML = '';
       span.remove();
     });
+  btnDeleteImg.style.display = 'block';
 });
 
 //очистка превью загружаемых фото
