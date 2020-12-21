@@ -29,7 +29,7 @@
 
         <form enctype="multipart/form-data" method="POST" id="uploadImgForm"> 
           <div class="file-field input-field">
-            <div class="btn">
+            <div class="btn green accent-4">
               <span>Загрузить</span>
               <input type="file" id="imgUpload" name="imgUpload" accept="image/jpeg, image/png, image/jpg" multiple>
             </div>
@@ -39,11 +39,11 @@
           </div>
         </form>
         <div class="submitBtn">
-          <button class="btn waves-effect waves-light green" type="submit" name="action" id="btnSend" onclick="onCreatePost()">Отправить
+          <button class="btn waves-effect waves-light green accent-4" type="submit" name="action" id="btnSend" onclick="onCreatePost()">Отправить
           <i class="material-icons right">send</i>
         </button>
         </div>
-        <div class="btnDeleteImg"><button class="btn-small" onclick="clearPreview()">Удалить фото</button></div>
+        <div class="btnDeleteImg"><button class="btn-small red darken-4" onclick="clearPreview()">Удалить фото</button></div>
       </form>
       
       <div id="preview"></div>

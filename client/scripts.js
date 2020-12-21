@@ -19,7 +19,7 @@ const card = (post) => {
   }')">
         </div>
         <div class="card-content">
-          <div style='word-break: break-word; white-space: pre-line;'>
+          <div style='word-break: break-word; white-space: pre-wrap;'>
             <p>${post.text.trim()}</p>
           </div>
           <small class='cardDate'>${new Date(
@@ -53,7 +53,7 @@ const cardPersonal = (post) => {
   }')">
         </div>
         <div class="card-content">
-          <div style='word-break: break-word; white-space: pre-line;'>
+          <div style='word-break: break-word; white-space: pre-wrap;'>
             <p>${post.text.trim()}</p>
           </div> 
           <small class='cardDate'>${new Date(
@@ -192,7 +192,7 @@ function onCreatePost() {
     if (arrImg) {
       divPreview.innerHTML = '';
     }
-    $input.value = '';
+    $input.style.height = '43px';
     writePost.reset();
     btnDeleteImg.style.display = 'none';
   }
@@ -305,7 +305,7 @@ function onCreatePostPersonal() {
     if (arrImg) {
       divPreview.innerHTML = '';
     }
-    $input.value = '';
+    $input.style.height = '43px';
     writePost.reset();
     btnDeleteImg.style.display = 'none';
   }
@@ -320,6 +320,9 @@ function onDeletePostPersonal(event) {
         const postIndex = postsPersonal.findIndex((post) => post._id === id);
         postsPersonal.splice(postIndex, 1);
         renderPostsPersonal(postsPersonal);
+        iziToast.success({
+          title: 'Удалено',
+        });
       });
     }
   }
