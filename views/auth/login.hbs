@@ -40,11 +40,11 @@
         <div class="input-field">
           <input id="remail" name="email" type="email" class="validate" required value="{{data.email}}">
           <label for="remail">Email</label>
-          <span class="helper-text" data-error="Введите email"></span>
+          <span class="helper-text" data-error="Введите нормальный email!"></span>
         </div>
 
         <div class="input-field">
-          <input id="rpassword" name="password" type="password" class="validate" required value="{{data.password}}">
+          <input id="rpassword" name="password" type="password" class="validate" minlength="6" maxlength="56" required value="{{data.password}}">
           <label for="rpassword">Пароль</label>
           <span class="helper-text" data-error="Введите пароль"></span>
         </div>
@@ -52,7 +52,7 @@
         <div class="input-field">
           <input id="confirm" name="confirm" type="password" class="validate" required>
           <label for="confirm">Пароль еще раз</label>
-          <span class="helper-text" data-error="Пароли не совпадают"></span>
+          <span class="helper-text"></span>
         </div>
 
         <div class="input-field">

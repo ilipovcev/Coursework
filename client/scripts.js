@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
   PostApi.fetch().then((backendPosts) => {
     posts = backendPosts.concat();
     renderPosts(posts);
-  }).then;
+  });
   PostApiPersonal.fetch().then((backendPosts) => {
     postsPersonal = backendPosts.concat();
     renderPostsPersonal(postsPersonal);
