@@ -16,10 +16,9 @@ exports.registerValidators = [
       }
     })
     .normalizeEmail(),
-  body('password', 'Пароль должен быть минимум 6 символов')
-    .isLength({ min: 6, max: 56 })
-    .isAlphanumeric()
-    .trim(),
+  body('password', 'Пароль должен быть минимум 6 символов').isLength({
+    min: 6,
+  }),
   body('confirm')
     .custom((value, { req }) => {
       if (value !== req.body.password) {
@@ -29,10 +28,10 @@ exports.registerValidators = [
     })
     .trim(),
   body('name')
+    .isLength({ min: 3, max: 32 })
+    .withMessage('Имя не должно содержать более 32 символов!')
     .trim()
-    .escape()
-    .isLength({ min: 3, max: 20 })
-    .withMessage('Имя не должно содержать более 20 символов!'),
+    .escape(),
 ];
 
 exports.loginValidators = [
@@ -50,10 +49,9 @@ exports.loginValidators = [
       }
     })
     .normalizeEmail(),
-  body('password', 'Пароль должен быть минимум 6 символов')
-    .isLength({ min: 6, max: 56 })
-    .isAlphanumeric()
-    .trim(),
+  body('password', 'Пароль должен быть минимум 6 символов').isLength({
+    min: 6,
+  }),
 ];
 
 exports.postValidators = [body('text').escape()];

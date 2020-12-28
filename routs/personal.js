@@ -50,7 +50,7 @@ router.post('/deleteImg', auth, async (req, res) => {
     for (let i = 0; i < links.length; i++) {
       if (links[i].includes('images\\')) {
         fs.unlink(links[i], (err) => {
-          if (err) throw err;
+          if (err) return res.status(406).json();
           console.log('File was deleted');
         });
         res.status(200).json();

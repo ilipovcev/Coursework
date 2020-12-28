@@ -21,7 +21,7 @@
         </div>
 
         <div class="input-field">
-          <input id="password" name="password" type="password" class="validate" required>
+          <input id="password" name="password" type="password" class="validate" minlength="6" maxlength="56" required>
           <label for="password">Пароль</label>
           <span class="helper-text" data-error="Введите пароль"></span>
         </div>
@@ -40,7 +40,7 @@
         <div class="input-field">
           <input id="remail" name="email" type="email" class="validate" required value="{{data.email}}">
           <label for="remail">Email</label>
-          <span class="helper-text" data-error="Введите нормальный email!"></span>
+          <span class="helper-text" data-error="Введите email"></span>
         </div>
 
         <div class="input-field">

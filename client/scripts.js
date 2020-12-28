@@ -1,6 +1,11 @@
 'use strict';
 
 const card = (post) => {
+  let countImg = '';
+
+  if (post.img.length >= 1) {
+    countImg = `Количество фотографий: ${post.img.length}`;
+  }
   if (post.img.length == 0) {
     post.img[0] = '';
   }
@@ -18,6 +23,7 @@ const card = (post) => {
     post.img
   }')">
         </div>
+        <span style="font-size: 15px">${countImg}</span>
         <div class="card-content">
           <div style='word-break: break-word; white-space: pre-wrap;'>
             <p>${post.text.trim()}</p>
@@ -36,6 +42,11 @@ const card = (post) => {
 };
 
 const cardPersonal = (post) => {
+  let countImg = '';
+
+  if (post.img.length >= 1) {
+    countImg = `Количество фотографий: ${post.img.length}`;
+  }
   if (post.img.length == 0) {
     post.img[0] = '';
   }
@@ -52,6 +63,7 @@ const cardPersonal = (post) => {
     post.img
   }')">
         </div>
+        <span style="font-size: 15px">${countImg}</span>
         <div class="card-content">
           <div style='word-break: break-word; white-space: pre-wrap;'>
             <p>${post.text.trim()}</p>
@@ -389,6 +401,7 @@ $('#imgUpload').change(function () {
       filePath = link;
       readURL(this);
       span.remove();
+      btnDeleteImg.style.display = 'block';
     })
     .catch((reject) => {
       iziToast.error({ title: 'Ошибка', message: 'Файл не загружен' });
@@ -396,8 +409,8 @@ $('#imgUpload').change(function () {
       imgUpload.value = '';
       divPreview.innerHTML = '';
       span.remove();
+      btnDeleteImg.style.display = 'none';
     });
-  btnDeleteImg.style.display = 'block';
 });
 
 $('#imgUploadPersonal').change(function () {
@@ -422,6 +435,7 @@ $('#imgUploadPersonal').change(function () {
       filePath = link;
       readURL(this);
       span.remove();
+      btnDeleteImg.style.display = 'block';
     })
     .catch((reject) => {
       iziToast.error({ title: 'Ошибка', message: 'Файл не загружен' });
@@ -429,8 +443,8 @@ $('#imgUploadPersonal').change(function () {
       imgUpload.value = '';
       divPreview.innerHTML = '';
       span.remove();
+      btnDeleteImg.style.display = 'none';
     });
-  btnDeleteImg.style.display = 'block';
 });
 
 //очистка превью загружаемых фото
